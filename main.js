@@ -2,13 +2,16 @@ var fs = require('fs');
 var scrapePage  = require('./scrape.js');
 var objects = []
 
-fs.readFile('config.json', 'utf8', function(error, data){
+configFile = process.argv[2]
+objectType = process.argv[3]
+
+fs.readFile(configFile, 'utf8', function(error, data){
   if(!error){
     config = JSON.parse(data);
     // chain = Promise.resolve();
     chain = [];
     for (i = 0; i < config.urls.length; i++) {
-      chain.push(scrapePage(config.urls[i], objects, 'movies'));
+      chain.push(scrapePage(config.urls[i], objects, objectType));
     }
     Promise.all(chain).then(function(){
       return new Promise( (resolve, reject) => {
