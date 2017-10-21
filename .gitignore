@@ -1,5 +1,6 @@
 lib-cov
-*.json
+data/*.json
+config/*.json
 *.seed
 *.log
 *.csv
@@ -14,4 +15,3 @@ results
 
 npm-debug.log
 node_modules
-

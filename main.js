@@ -8,7 +8,6 @@ objectType = process.argv[3]
 fs.readFile(configFile, 'utf8', function(error, data){
   if(!error){
     config = JSON.parse(data);
-    // chain = Promise.resolve();
     chain = [];
     for (i = 0; i < config.urls.length; i++) {
       chain.push(scrapePage(config.urls[i], objects, objectType));

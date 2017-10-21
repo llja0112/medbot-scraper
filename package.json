@@ -1,0 +1,29 @@
+{
+  "name": "medbot-scraper",
+  "version": "1.0.0",
+  "description": "Scraper for medbot",
+  "main": "]",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llja0112/medbot-scraper.git"
+  },
+  "keywords": [
+    "medicine",
+    "scraper"
+  ],
+  "author": "Anthony Li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/llja0112/medbot-scraper/issues"
+  },
+  "homepage": "https://github.com/llja0112/medbot-scraper#readme"
+}

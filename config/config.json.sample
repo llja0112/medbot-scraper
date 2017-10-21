@@ -1,0 +1,8 @@
+{
+  "urls": [
+    "http://www.imdb.com/title/tt1229340/",
+    "http://www.imdb.com/title/tt0371746/",
+    "http://www.imdb.com/title/tt1228705/"
+  ],
+  "outputFileName": "data/movies.json"
+}
