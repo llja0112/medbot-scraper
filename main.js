@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var fs = require('fs');
 var scrapePage  = require('./scrape.js');
 var objects = []
@@ -8,11 +9,24 @@ objectType = process.argv[3]
 fs.readFile(configFile, 'utf8', function(error, data){
   if(!error){
     config = JSON.parse(data);
-    chain = [];
-    for (i = 0; i < config.urls.length; i++) {
-      chain.push(scrapePage(config.urls[i], objects, objectType));
-    }
-    Promise.all(chain).then(function(){
+    chain = new Promise(function(resolve, reject){
+      console.log('Start');
+      resolve();
+    });
+
+    config.urls.forEach(function(url){
+      chain = chain.then(function(){
+        return new Promise(function(resolve, reject){
+          console.log(url);
+          scrapePage(url, objectType).then(function(json){
+            objects.push(json);
+            resolve();
+          })
+        });
+      }).delay(5000);
+    });
+
+    chain.then(function(){
       return new Promise( (resolve, reject) => {
         fs.writeFile(config.outputFileName, JSON.stringify(objects, null, 4), function(err){
           console.log('File successfully written to: ' + config.outputFileName);
@@ -23,3 +37,11 @@ fs.readFile(configFile, 'utf8', function(error, data){
     console.log('Error with reading file!');
   }
 });
+
+function delay() {
+  return new Promise(function(resolve){
+    var delay = Math.random()*10000 + 10000;
+    console.log("Delaying for " + delay/1000 + " seconds");
+    setTimeout(function(){resolve();}, delay);
+  });
+}

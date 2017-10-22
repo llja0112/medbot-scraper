@@ -1,8 +1,10 @@
+var Promise = require('bluebird');
 var rp      = require('request-promise');
 var fs      = require('fs');
 var cheerio = require('cheerio');
 
-function scrapePage(url, objects, functionName) {
+function scrapePage(url, functionName) {
+  var delay = Math.random()*10000 + 10000;
   var options = {
     uri: url,
     transform: function (body) {
@@ -12,8 +14,8 @@ function scrapePage(url, objects, functionName) {
 
   return rp(options).then(function(json){
     console.log('requesting page from: '+ url);
-    objects.push(json);
-  })
+    return json;
+  });
 }
 
 var ParseContent = {
@@ -37,6 +39,26 @@ var ParseContent = {
 
       json.rating = rating;
     })
+
+    return json;
+  },
+
+  patientsweb : function (body){
+    $ = cheerio.load(body);
+    var title, description, threads;
+    var json = { title: "", description: "", threads: [] }
+
+    title = $('.listContent h1').text();
+    description = $('.listContent .postContent p').text();
+    threads = []
+
+    $('.replyWrap').each(function(){
+      threads.push($(this).children('.listContent').children('p').text());
+    });
+
+    json.title = title;
+    json.description = description;
+    json.threads = threads;
 
     return json;
   }
