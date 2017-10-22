@@ -37,11 +37,3 @@ fs.readFile(configFile, 'utf8', function(error, data){
     console.log('Error with reading file!');
   }
 });
-
-function delay() {
-  return new Promise(function(resolve){
-    var delay = Math.random()*10000 + 10000;
-    console.log("Delaying for " + delay/1000 + " seconds");
-    setTimeout(function(){resolve();}, delay);
-  });
-}
